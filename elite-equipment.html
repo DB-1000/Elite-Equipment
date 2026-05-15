@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Equipment | Precision Hardware for Every Build</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--bg2:#111111;--bg3:#1a1a1a;--surface:#161616;--border:rgba(255,255,255,0.08);--border-hover:rgba(255,255,255,0.2);--accent:#e8ff47;--accent-dim:#c8df2a;--text:#f0ede6;--text-muted:#888880;--text-dim:#555550;--red:#ff4444;--green:#44cc88;--font-display:'Bebas Neue',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;overflow-x:hidden}
+input,select,textarea{background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-body);font-size:14px;padding:0.65rem 0.9rem;width:100%;outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+select option{background:var(--bg2)}
+label{display:block;font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.4rem}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:64px;background:rgba(10,10,10,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.08em;color:var(--text);text-decoration:none}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-links a,.nav-links button{color:var(--text-muted);text-decoration:none;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;background:none;border:none;cursor:pointer;font-family:var(--font-body)}
+.nav-links a:hover,.nav-links button:hover,.nav-links a.active,.nav-links button.active{color:var(--text)}
+.nav-actions{display:flex;align-items:center;gap:0.75rem}
+.cart-btn{position:relative;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:0.45rem 1.1rem;font-family:var(--font-body);font-size:13px;cursor:pointer;letter-spacing:0.05em;transition:all 0.2s}
+.cart-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cart-count{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#000;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center}
+.user-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:0.45rem 1.1rem;font-family:var(--font-body);font-size:13px;cursor:pointer;letter-spacing:0.05em;transition:all 0.2s}
+.user-btn:hover{border-color:var(--accent);color:var(--accent)}
+.page{display:none}.page.active{display:block}
+.btn-primary{background:var(--accent);color:#000;border:none;padding:0.85rem 2.2rem;font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--accent-dim);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border-hover);padding:0.85rem 2.2rem;font-family:var(--font-body);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.4rem 0.9rem!important;font-size:12px!important}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(232,255,71,0.04) 0%,transparent 60%),linear-gradient(180deg,transparent 40%,rgba(10,10,10,0.98) 100%);z-index:0}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px;z-index:0}
+.hero-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:1.5rem;position:relative;z-index:1}
+.hero h1{font-family:var(--font-display);font-size:clamp(4rem,10vw,9rem);line-height:0.92;letter-spacing:0.02em;position:relative;z-index:1;max-width:900px}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero-sub{margin-top:2rem;max-width:480px;color:var(--text-muted);font-size:14px;line-height:1.7;position:relative;z-index:1}
+.hero-actions{display:flex;gap:1rem;margin-top:2.5rem;position:relative;z-index:1}
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0.9rem 0;overflow:hidden;background:var(--bg2)}
+.marquee-inner{display:flex;animation:marquee 24s linear infinite;white-space:nowrap}
+.marquee-item{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);padding:0 3rem;flex-shrink:0}
+.marquee-item span{color:var(--accent);margin-right:2rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.features-strip{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--border)}
+.feature-item{padding:3rem 2.5rem;border-right:1px solid var(--border)}
+.feature-item:last-child{border-right:none}
+.feature-num{font-family:var(--font-display);font-size:3rem;color:var(--accent);line-height:1;margin-bottom:0.75rem}
+.feature-title{font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem}
+.feature-desc{font-size:13px;color:var(--text-muted);line-height:1.65}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;padding:4rem 3rem 2rem;border-bottom:1px solid var(--border)}
+.section-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);letter-spacing:0.04em}
+.section-title em{color:var(--accent);font-style:normal}
+.section-link{font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--text-dim);padding-bottom:2px;transition:all 0.2s;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none}
+.section-link:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));border-bottom:1px solid var(--border)}
+.product-card{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem;cursor:pointer;transition:background 0.2s;position:relative}
+.product-card:hover{background:var(--surface)}
+.product-card:hover .product-img-wrap::after{opacity:1}
+.product-img-wrap{aspect-ratio:1;background:var(--bg3);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.product-img-wrap::after{content:'VIEW →';position:absolute;inset:0;background:rgba(232,255,71,0.08);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--accent);opacity:0;transition:opacity 0.2s}
+.product-icon{font-size:4rem;user-select:none;filter:grayscale(1) opacity(0.4)}
+.product-category{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.4rem}
+.product-name{font-size:15px;font-weight:500;margin-bottom:0.75rem;line-height:1.3}
+.product-footer{display:flex;align-items:center;justify-content:space-between}
+.product-price{font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.03em}
+.add-to-cart{background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:0.4rem 0.9rem;font-size:12px;font-family:var(--font-body);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em}
+.add-to-cart:hover{border-color:var(--accent);color:var(--accent);background:rgba(232,255,71,0.04)}
+.shop-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px);padding-top:64px}
+.shop-sidebar{border-right:1px solid var(--border);padding:2.5rem 1.5rem;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+.sidebar-section{margin-bottom:2rem}
+.sidebar-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.75rem}
+.filter-btn{display:block;width:100%;background:transparent;border:none;color:var(--text-muted);font-family:var(--font-body);font-size:13px;text-align:left;padding:0.35rem 0.75rem;cursor:pointer;transition:all 0.15s;letter-spacing:0.02em}
+.filter-btn:hover,.filter-btn.active{color:var(--text);background:var(--surface)}
+.filter-btn.active{color:var(--accent)}
+.shop-main{padding:2.5rem 2rem}
+.shop-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
+.shop-title{font-family:var(--font-display);font-size:2.5rem;letter-spacing:0.05em}
+.product-count{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:0.1em}
+#page-product{padding-top:64px}
+.product-detail{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px)}
+.product-detail-img{background:var(--bg3);border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:8rem;filter:grayscale(1) opacity(0.25);min-height:500px}
+.product-detail-info{padding:4rem 3.5rem;border-bottom:1px solid var(--border)}
+.product-detail-cat{font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem}
+.product-detail-name{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);letter-spacing:0.03em;line-height:1;margin-bottom:1.5rem}
+.product-detail-price{font-family:var(--font-display);font-size:3rem;letter-spacing:0.03em;margin-bottom:2rem}
+.product-detail-desc{font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:2.5rem;max-width:420px}
+.product-specs{border-top:1px solid var(--border);padding-top:1.5rem;margin-bottom:2.5rem}
+.spec-row{display:flex;justify-content:space-between;padding:0.55rem 0;border-bottom:1px solid var(--border);font-size:13px}
+.spec-key{color:var(--text-dim);font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase}
+.qty-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.qty-btn{width:36px;height:36px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.qty-btn:hover{border-color:var(--accent);color:var(--accent)}
+.qty-display{font-family:var(--font-mono);font-size:16px;min-width:24px;text-align:center}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none}
+.cart-overlay.open{display:block}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:420px;background:var(--bg2);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 1.75rem;border-bottom:1px solid var(--border)}
+.cart-drawer-title{font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.06em}
+.close-btn{background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer;line-height:1;transition:color 0.2s}
+.close-btn:hover{color:var(--text)}
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem 1.75rem}
+.cart-empty{text-align:center;color:var(--text-dim);font-size:13px;padding:3rem 0;font-family:var(--font-mono);letter-spacing:0.08em}
+.cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
+.cart-item-icon{width:60px;height:60px;background:var(--bg3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;filter:grayscale(1) opacity(0.4)}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:13px;font-weight:500;margin-bottom:0.25rem}
+.cart-item-price{font-family:var(--font-mono);font-size:12px;color:var(--accent)}
+.cart-item-qty{font-size:11px;color:var(--text-dim);margin-top:0.25rem}
+.cart-item-remove{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:16px;align-self:flex-start;transition:color 0.15s}
+.cart-item-remove:hover{color:var(--red)}
+.cart-footer{border-top:1px solid var(--border);padding:1.5rem 1.75rem}
+.cart-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem}
+.cart-total-label{font-size:13px;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase}
+.cart-total-amount{font-family:var(--font-display);font-size:2rem}
+#page-checkout{padding-top:64px}
+.checkout-layout{display:grid;grid-template-columns:1fr 400px;min-height:calc(100vh - 64px)}
+.checkout-form-col{padding:3rem;border-right:1px solid var(--border)}
+.checkout-summary-col{padding:3rem;background:var(--bg2)}
+.checkout-title{font-family:var(--font-display);font-size:2.5rem;letter-spacing:0.04em;margin-bottom:2.5rem}
+.co-section{margin-bottom:2.5rem}
+.co-section-title{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0}
+.form-field{margin-bottom:1rem}
+.card-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem}
+.summary-item{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid var(--border);font-size:13px}
+.summary-item-name{color:var(--text-muted)}
+.summary-item-price{font-family:var(--font-mono);color:var(--accent)}
+.order-success{text-align:center;padding:6rem 2rem}
+.order-success-icon{font-size:4rem;margin-bottom:1.5rem}
+.order-success-title{font-family:var(--font-display);font-size:3.5rem;color:var(--green);margin-bottom:1rem}
+.order-success-sub{color:var(--text-muted);font-size:14px;margin-bottom:2rem;line-height:1.8}
+#page-account{padding-top:64px;min-height:100vh}
+.account-layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 64px)}
+.account-sidebar{border-right:1px solid var(--border);padding:2.5rem 1.5rem;position:sticky;top:64px;height:calc(100vh - 64px)}
+.account-nav-item{display:block;width:100%;background:none;border:none;text-align:left;padding:0.6rem 0.9rem;font-family:var(--font-body);font-size:13px;color:var(--text-muted);cursor:pointer;letter-spacing:0.02em;transition:all 0.15s;border-left:2px solid transparent}
+.account-nav-item:hover{color:var(--text);background:var(--surface)}
+.account-nav-item.active{color:var(--accent);border-left-color:var(--accent)}
+.account-main{padding:3rem}
+.account-section{display:none}
+.account-section.active{display:block}
+.account-section-title{font-family:var(--font-display);font-size:2rem;letter-spacing:0.04em;margin-bottom:2rem}
+.account-card{background:var(--surface);border:1px solid var(--border);padding:2rem;margin-bottom:1.5rem}
+.account-card-title{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+#page-admin{padding-top:64px;min-height:100vh}
+.admin-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px)}
+.admin-sidebar{border-right:1px solid var(--border);padding:2rem 1.25rem;position:sticky;top:64px;height:calc(100vh - 64px);background:var(--bg2)}
+.admin-logo-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:2rem;padding:0.5rem 0.75rem;border:1px solid rgba(255,68,68,0.3);display:inline-block}
+.admin-nav-item{display:block;width:100%;background:none;border:none;text-align:left;padding:0.55rem 0.9rem;font-family:var(--font-body);font-size:13px;color:var(--text-muted);cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;letter-spacing:0.02em}
+.admin-nav-item:hover{color:var(--text);background:var(--surface)}
+.admin-nav-item.active{color:var(--accent);border-left-color:var(--accent)}
+.admin-main{padding:2.5rem}
+.admin-panel{display:none}
+.admin-panel.active{display:block}
+.admin-panel-title{font-family:var(--font-display);font-size:2rem;letter-spacing:0.04em;margin-bottom:0.4rem}
+.admin-panel-sub{font-size:13px;color:var(--text-muted);margin-bottom:2rem}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:1.5rem}
+.stat-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.5rem}
+.stat-val{font-family:var(--font-display);font-size:2.2rem;letter-spacing:0.03em}
+.stat-val.accent{color:var(--accent)}
+.table-wrap{overflow-x:auto;border:1px solid var(--border)}
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table th{font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);padding:0.75rem 1rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.admin-table td{padding:0.85rem 1rem;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+.admin-table tr:hover td{background:var(--surface)}
+.admin-table input{padding:0.3rem 0.6rem;font-size:13px;width:100%}
+.admin-actions{display:flex;gap:0.5rem;align-items:center}
+.btn-edit{background:none;border:1px solid var(--border);color:var(--text-muted);padding:0.3rem 0.7rem;font-size:11px;cursor:pointer;font-family:var(--font-mono);letter-spacing:0.06em;transition:all 0.15s}
+.btn-edit:hover{border-color:var(--accent);color:var(--accent)}
+.btn-del{background:none;border:1px solid rgba(255,68,68,0.3);color:var(--red);padding:0.3rem 0.7rem;font-size:11px;cursor:pointer;font-family:var(--font-mono);letter-spacing:0.06em;transition:all 0.15s}
+.btn-del:hover{background:rgba(255,68,68,0.1)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;align-items:center;justify-content:center;display:none}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);padding:2.5rem;width:580px;max-width:92vw;max-height:85vh;overflow-y:auto}
+.modal-title{font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.04em;margin-bottom:2rem}
+.modal-footer{display:flex;gap:1rem;justify-content:flex-end;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.guarantees{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border)}
+.guarantee-item{padding:3rem 2.5rem;border-right:1px solid var(--border)}
+.guarantee-item:last-child{border-right:none}
+.guarantee-icon{font-size:1.5rem;margin-bottom:1rem;display:block}
+.guarantee-title{font-size:13px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem}
+.guarantee-desc{font-size:13px;color:var(--text-muted);line-height:1.65}
+.builds-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.build-card{border-right:1px solid var(--border);padding:2.5rem 2rem}
+.build-card:last-child{border-right:none}
+.build-num{font-family:var(--font-display);font-size:4rem;color:var(--text-dim);line-height:1;margin-bottom:1.5rem}
+.build-name{font-size:13px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem;color:var(--accent)}
+.build-desc{font-size:12px;color:var(--text-muted);line-height:1.6}
+footer{border-top:1px solid var(--border);padding:3rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem}
+.footer-logo{font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.06em;margin-bottom:0.5rem}
+.footer-tagline{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem}
+.footer-col-title{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:0.5rem}
+.footer-links a,.footer-links button{color:var(--text-muted);text-decoration:none;font-size:13px;transition:color 0.15s;background:none;border:none;cursor:pointer;font-family:var(--font-body);padding:0}
+.footer-links a:hover,.footer-links button:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid var(--border);padding:1.25rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--accent);color:#000;padding:0.75rem 1.75rem;font-size:13px;font-weight:500;letter-spacing:0.05em;z-index:400;transition:transform 0.3s ease;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.signin-modal-box{background:var(--bg2);border:1px solid var(--border);padding:2.5rem;width:440px;max-width:92vw}
+.signin-tabs{display:flex;margin-bottom:2rem;border-bottom:1px solid var(--border)}
+.signin-tab{background:none;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem 1.5rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.15s}
+.signin-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.signin-form{display:none}
+.signin-form.active{display:block}
+.pill{display:inline-block;font-size:11px;padding:0.2rem 0.65rem;font-family:var(--font-mono);letter-spacing:0.06em}
+.pill-green{background:rgba(68,204,136,0.12);color:var(--green)}
+.pill-yellow{background:rgba(232,255,71,0.1);color:var(--accent)}
+.pill-red{background:rgba(255,68,68,0.1);color:var(--red)}
+.pill-dim{background:var(--surface);color:var(--text-dim)}
+@media(max-width:900px){
+  nav{padding:0 1.25rem}
+  .nav-links{display:none}
+  .hero{padding:0 1.25rem 4rem}
+  .hero h1{font-size:3.5rem}
+  .features-strip,.guarantees{grid-template-columns:1fr}
+  .feature-item,.guarantee-item{border-right:none;border-bottom:1px solid var(--border)}
+  .section-header{padding:3rem 1.25rem 1.5rem;flex-direction:column;gap:1rem}
+  .builds-grid{grid-template-columns:1fr 1fr}
+  .shop-layout,.account-layout,.admin-layout{grid-template-columns:1fr}
+  .shop-sidebar,.account-sidebar,.admin-sidebar{display:none}
+  .product-detail,.checkout-layout{grid-template-columns:1fr}
+  .product-detail-img{min-height:260px}
+  footer{grid-template-columns:1fr}
+  .cart-drawer{width:100%}
+  .form-row,.form-grid,.card-row{grid-template-columns:1fr}
+  .admin-stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">ELITE<span>.</span>EQUIPMENT</a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a href="#" onclick="showPage('shop')" id="nav-shop">Shop</a>
+    <button onclick="showPage('account')" id="nav-account" style="display:none">Account</button>
+  </div>
+  <div class="nav-actions">
+    <button class="cart-btn" onclick="toggleCart()">CART <span class="cart-count" id="cart-count">0</span></button>
+    <button class="user-btn" id="user-btn" onclick="openSignIn()">SIGN IN</button>
+  </div>
+</nav>
+
+<!-- ══════════════════ HOME ══════════════════ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-bg"></div><div class="hero-grid"></div>
+    <div class="hero-tag">// Est. 2024 · Premium Components</div>
+    <h1>PRECISION<br><em>HARDWARE</em><br>FOR EVERY<br>BUILD.</h1>
+    <p class="hero-sub">We curate high-performance hardware for gamers, creators, and professionals who demand reliability. Precision-engineered components designed to push your system to its absolute limits.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#" onclick="showPage('shop')">SHOP THE COLLECTION</a>
+      <a class="btn-ghost" href="#builds">CUSTOMER BUILDS</a>
+    </div>
+  </section>
+  <div class="marquee-wrap"><div class="marquee-inner">
+    <div class="marquee-item"><span>★</span>CPUs &amp; Processors</div><div class="marquee-item"><span>★</span>NVMe SSDs</div>
+    <div class="marquee-item"><span>★</span>Mechanical Keyboards</div><div class="marquee-item"><span>★</span>30-Day No Dead Pixel Guarantee</div>
+    <div class="marquee-item"><span>★</span>DOA Protection</div><div class="marquee-item"><span>★</span>Warranty Clarity</div>
+    <div class="marquee-item"><span>★</span>CPUs &amp; Processors</div><div class="marquee-item"><span>★</span>NVMe SSDs</div>
+    <div class="marquee-item"><span>★</span>Mechanical Keyboards</div><div class="marquee-item"><span>★</span>30-Day No Dead Pixel Guarantee</div>
+    <div class="marquee-item"><span>★</span>DOA Protection</div><div class="marquee-item"><span>★</span>Warranty Clarity</div>
+  </div></div>
+  <div class="features-strip">
+    <div class="feature-item"><div class="feature-num">9</div><div class="feature-title">Curated Products</div><div class="feature-desc">Every item hand-selected for elite performance and build compatibility.</div></div>
+    <div class="feature-item"><div class="feature-num">3</div><div class="feature-title">Core Categories</div><div class="feature-desc">CPUs, SSDs, and Keyboards — the essential trio for any serious build.</div></div>
+    <div class="feature-item"><div class="feature-num">30</div><div class="feature-title">Day Guarantee</div><div class="feature-desc">Dead pixel? DOA component? We replace it at zero cost to you.</div></div>
+  </div>
+  <div class="section-header">
+    <div class="section-title">TOP-RATED <em>HARDWARE</em></div>
+    <button class="section-link" onclick="showPage('shop')">SHOP ALL PRODUCTS →</button>
+  </div>
+  <div class="product-grid" id="home-products"></div>
+  <div class="section-header"><div class="section-title">WHY SHOP <em>WITH US?</em></div></div>
+  <div class="guarantees">
+    <div class="guarantee-item"><span class="guarantee-icon">🛡</span><div class="guarantee-title">30-Day No Dead Pixel Guarantee</div><div class="guarantee-desc">Any dead pixels within 30 days? We replace it, no questions asked.</div></div>
+    <div class="guarantee-item"><span class="guarantee-icon">📦</span><div class="guarantee-title">DOA Protection</div><div class="guarantee-desc">Every component tested before shipping. Arrives functional or we fix it.</div></div>
+    <div class="guarantee-item"><span class="guarantee-icon">📄</span><div class="guarantee-title">Warranty Clarity</div><div class="guarantee-desc">Transparent specs and clear warranty terms — no surprises.</div></div>
+  </div>
+  <div id="builds" class="section-header"><div class="section-title">CUSTOMER <em>BUILDS</em></div></div>
+  <div style="border-bottom:1px solid var(--border)"><div class="builds-grid">
+    <div class="build-card"><div class="build-num">01</div><div class="build-name">Elite Gaming Rig</div><div class="build-desc">Precision cooling and high-refresh rate performance for competitive play.</div></div>
+    <div class="build-card"><div class="build-num">02</div><div class="build-name">Creative Workstation</div><div class="build-desc">Optimized for 4K rendering and video editing workflows.</div></div>
+    <div class="build-card"><div class="build-num">03</div><div class="build-name">Professional Workstation</div><div class="build-desc">Built for heavy-duty engineering simulations.</div></div>
+    <div class="build-card"><div class="build-num">04</div><div class="build-name">Modular Performance</div><div class="build-desc">Customizable hardware ecosystem that evolves with your needs.</div></div>
+  </div></div>
+  <footer>
+    <div><div class="footer-logo">ELITE EQUIPMENT</div><div class="footer-tagline">Precision Hardware for Every Build.</div><div style="font-size:13px;color:var(--text-muted)">hello@elite-equipment.com</div></div>
+    <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="#" onclick="showPage('home')">Home</a></li><li><a href="#" onclick="showPage('shop')">Shop</a></li></ul></div>
+    <div><div class="footer-col-title">Legal</div><ul class="footer-links"><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Warranty Information</a></li></ul></div>
+  </footer>
+  <div class="footer-bottom"><span class="footer-copy">© 2026 ELITE EQUIPMENT. ALL RIGHTS RESERVED.</span><span class="footer-copy">PRECISION HARDWARE FOR EVERY BUILD.</span></div>
+</div>
+
+<!-- ══════════════════ SHOP ══════════════════ -->
+<div id="page-shop" class="page">
+  <div class="shop-layout">
+    <aside class="shop-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Browse By</div>
+        <button class="filter-btn active" onclick="filterProducts('all',this)">All Products</button>
+        <button class="filter-btn" onclick="filterProducts('CPU',this)">CPUs</button>
+        <button class="filter-btn" onclick="filterProducts('SSD',this)">SSDs</button>
+        <button class="filter-btn" onclick="filterProducts('Keyboard',this)">Keyboards</button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Price Range</div>
+        <div style="padding:0.5rem 0.75rem;font-size:12px;color:var(--text-dim);font-family:var(--font-mono)">$110 – $450</div>
+      </div>
+    </aside>
+    <div class="shop-main">
+      <div class="shop-header"><div class="shop-title">ALL PRODUCTS</div><div class="product-count" id="product-count">9 PRODUCTS</div></div>
+      <div class="product-grid" id="shop-products"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PRODUCT DETAIL ══════════════════ -->
+<div id="page-product" class="page" style="padding-top:64px">
+  <div class="product-detail">
+    <div class="product-detail-img" id="detail-icon">💻</div>
+    <div class="product-detail-info">
+      <div class="product-detail-cat" id="detail-cat">CPU</div>
+      <div class="product-detail-name" id="detail-name">Product Name</div>
+      <div class="product-detail-price" id="detail-price">$000</div>
+      <p class="product-detail-desc" id="detail-desc"></p>
+      <div class="product-specs" id="detail-specs"></div>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-display" id="qty-display">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <button class="btn-primary" onclick="addCurrentToCart()" style="width:100%;text-align:center">ADD TO CART</button>
+      <div style="margin-top:1rem"><button class="btn-ghost" onclick="showPage('shop')" style="font-size:12px;padding:0.6rem 1.2rem">← BACK TO SHOP</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ CHECKOUT ══════════════════ -->
+<div id="page-checkout" class="page">
+  <div id="checkout-content">
+    <div class="checkout-layout">
+      <div class="checkout-form-col">
+        <div class="checkout-title">CHECKOUT</div>
+        <div class="co-section">
+          <div class="co-section-title">Contact Information</div>
+          <div class="form-field"><label>Email Address</label><input type="email" id="co-email" placeholder="you@example.com"></div>
+          <div class="form-row">
+            <div class="form-field"><label>First Name</label><input type="text" id="co-first" placeholder="Jane"></div>
+            <div class="form-field"><label>Last Name</label><input type="text" id="co-last" placeholder="Doe"></div>
+          </div>
+        </div>
+        <div class="co-section">
+          <div class="co-section-title">Shipping Address</div>
+          <div class="form-field"><label>Street Address</label><input type="text" id="co-addr" placeholder="123 Main St"></div>
+          <div class="form-row">
+            <div class="form-field"><label>City</label><input type="text" id="co-city" placeholder="New York"></div>
+            <div class="form-field"><label>State</label><input type="text" id="co-state" placeholder="NY"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>ZIP Code</label><input type="text" id="co-zip" placeholder="10001"></div>
+            <div class="form-field"><label>Country</label><select id="co-country"><option>United States</option><option>Canada</option><option>United Kingdom</option><option>Germany</option><option>France</option><option>Japan</option><option>Australia</option></select></div>
+          </div>
+        </div>
+        <div class="co-section">
+          <div class="co-section-title">Payment Details</div>
+          <div class="form-field"><label>Name on Card</label><input type="text" id="co-cardname" placeholder="Jane Doe"></div>
+          <div class="form-field"><label>Card Number</label><input type="text" id="co-cardnum" placeholder="4242 4242 4242 4242" maxlength="19" oninput="fmtCard(this)"></div>
+          <div class="card-row">
+            <div class="form-field"><label>Expiry</label><input type="text" id="co-exp" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)"></div>
+            <div class="form-field"><label>CVV</label><input type="text" id="co-cvv" placeholder="123" maxlength="4"></div>
+            <div class="form-field"><label>Billing ZIP</label><input type="text" id="co-billzip" placeholder="10001" maxlength="5"></div>
+          </div>
+          <div style="margin-top:0.5rem;padding:0.75rem;background:var(--bg3);border:1px solid var(--border);font-size:12px;color:var(--text-dim);font-family:var(--font-mono)">🔒 MOCK CHECKOUT — NO REAL CHARGES WILL BE MADE</div>
+        </div>
+        <button class="btn-primary" onclick="placeOrder()" style="width:100%;text-align:center;font-size:14px;padding:1rem">PLACE ORDER</button>
+        <div style="margin-top:1rem"><button class="btn-ghost" onclick="toggleCart()" style="font-size:12px;padding:0.6rem 1.2rem">← BACK TO CART</button></div>
+      </div>
+      <div class="checkout-summary-col">
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem">Order Summary</div>
+        <div id="checkout-items"></div>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:0.5rem">
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:0.4rem 0;color:var(--text-muted)"><span>Subtotal</span><span id="co-subtotal">$0</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:0.4rem 0;color:var(--text-muted)"><span>Shipping</span><span style="color:var(--green)">FREE</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:0.4rem 0;color:var(--text-muted)"><span>Tax (8%)</span><span id="co-tax">$0</span></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:1.5rem;margin-top:0.5rem">
+          <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted)">Total</span>
+          <span style="font-family:var(--font-display);font-size:2.5rem" id="co-total">$0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="order-success" style="display:none;padding-top:64px">
+    <div class="order-success">
+      <div class="order-success-icon">✓</div>
+      <div class="order-success-title">ORDER CONFIRMED</div>
+      <div class="order-success-sub">Your order has been placed successfully.<br>Order ID: <span id="success-order-id" style="font-family:var(--font-mono);color:var(--accent)"></span><br><span style="color:var(--text-dim)">A confirmation would be sent to your email in a real store.</span></div>
+      <button class="btn-primary" onclick="showPage('shop')">CONTINUE SHOPPING</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ACCOUNT ══════════════════ -->
+<div id="page-account" class="page">
+  <div class="account-layout">
+    <aside class="account-sidebar">
+      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;color:var(--text-dim);text-transform:uppercase;margin-bottom:1.5rem">My Account</div>
+      <div style="margin-bottom:2rem;padding:1rem;background:var(--surface);border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:500" id="acct-greeting">Hello, User</div>
+        <div style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);margin-top:0.25rem" id="acct-email-display">user@example.com</div>
+      </div>
+      <button class="account-nav-item active" onclick="switchAccountTab('profile',this)">Profile Settings</button>
+      <button class="account-nav-item" onclick="switchAccountTab('address',this)">Billing &amp; Shipping</button>
+      <button class="account-nav-item" onclick="switchAccountTab('history',this)">Purchase History</button>
+      <button class="account-nav-item" onclick="switchAccountTab('preferences',this)">Preferences</button>
+      <button class="account-nav-item" onclick="signOut()" style="margin-top:2rem;color:var(--red)">Sign Out</button>
+    </aside>
+    <div class="account-main">
+      <div id="acct-profile" class="account-section active">
+        <div class="account-section-title">PROFILE SETTINGS</div>
+        <div class="account-card">
+          <div class="account-card-title">Personal Information</div>
+          <div class="form-grid">
+            <div class="form-field"><label>First Name</label><input type="text" id="acct-first" placeholder="Jane"></div>
+            <div class="form-field"><label>Last Name</label><input type="text" id="acct-last" placeholder="Doe"></div>
+          </div>
+          <div class="form-field"><label>Email Address</label><input type="email" id="acct-email" placeholder="you@example.com"></div>
+          <div class="form-field"><label>Phone</label><input type="tel" id="acct-phone" placeholder="+1 (555) 000-0000"></div>
+          <button class="btn-primary btn-sm" style="margin-top:0.5rem" onclick="saveProfile()">SAVE CHANGES</button>
+        </div>
+        <div class="account-card">
+          <div class="account-card-title">Change Password</div>
+          <div class="form-field"><label>Current Password</label><input type="password" placeholder="••••••••"></div>
+          <div class="form-field"><label>New Password</label><input type="password" placeholder="••••••••"></div>
+          <div class="form-field"><label>Confirm New Password</label><input type="password" placeholder="••••••••"></div>
+          <button class="btn-ghost btn-sm" style="margin-top:0.5rem" onclick="showToast('Password updated successfully')">UPDATE PASSWORD</button>
+        </div>
+      </div>
+      <div id="acct-address" class="account-section">
+        <div class="account-section-title">BILLING &amp; SHIPPING</div>
+        <div class="account-card">
+          <div class="account-card-title">Shipping Address</div>
+          <div class="form-field"><label>Full Name</label><input type="text" id="ship-name" placeholder="Jane Doe"></div>
+          <div class="form-field"><label>Street Address</label><input type="text" id="ship-addr" placeholder="123 Main St, Apt 4B"></div>
+          <div class="form-grid">
+            <div class="form-field"><label>City</label><input type="text" id="ship-city" placeholder="New York"></div>
+            <div class="form-field"><label>State / Province</label><input type="text" id="ship-state" placeholder="NY"></div>
+          </div>
+          <div class="form-grid">
+            <div class="form-field"><label>ZIP / Postal Code</label><input type="text" id="ship-zip" placeholder="10001"></div>
+            <div class="form-field"><label>Country</label><select><option>United States</option><option>Canada</option><option>United Kingdom</option><option>Germany</option><option>France</option><option>Japan</option><option>Australia</option></select></div>
+          </div>
+          <button class="btn-primary btn-sm" style="margin-top:0.5rem" onclick="showToast('Shipping address saved')">SAVE ADDRESS</button>
+        </div>
+        <div class="account-card">
+          <div class="account-card-title">Billing Address</div>
+          <div style="margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem">
+            <input type="checkbox" id="same-as-ship" style="width:auto" onchange="toggleSameAddr(this)">
+            <span style="font-size:13px;color:var(--text-muted)">Same as shipping address</span>
+          </div>
+          <div id="billing-fields">
+            <div class="form-field"><label>Full Name</label><input type="text" placeholder="Jane Doe"></div>
+            <div class="form-field"><label>Street Address</label><input type="text" placeholder="123 Main St"></div>
+            <div class="form-grid">
+              <div class="form-field"><label>City</label><input type="text" placeholder="New York"></div>
+              <div class="form-field"><label>State</label><input type="text" placeholder="NY"></div>
+            </div>
+            <div class="form-grid">
+              <div class="form-field"><label>ZIP Code</label><input type="text" placeholder="10001"></div>
+              <div class="form-field"><label>Country</label><select><option>United States</option><option>Canada</option><option>United Kingdom</option></select></div>
+            </div>
+          </div>
+          <button class="btn-primary btn-sm" style="margin-top:0.5rem" onclick="showToast('Billing address saved')">SAVE ADDRESS</button>
+        </div>
+      </div>
+      <div id="acct-history" class="account-section">
+        <div class="account-section-title">PURCHASE HISTORY</div>
+        <div id="history-list"></div>
+      </div>
+      <div id="acct-preferences" class="account-section">
+        <div class="account-section-title">PREFERENCES</div>
+        <div class="account-card">
+          <div class="account-card-title">Language &amp; Region</div>
+          <div class="form-field"><label>Language</label>
+            <select id="pref-lang">
+              <option value="en">English</option><option value="es">Español</option><option value="fr">Français</option>
+              <option value="de">Deutsch</option><option value="ja">日本語</option><option value="zh">中文</option>
+              <option value="ko">한국어</option><option value="pt">Português</option>
+            </select>
+          </div>
+          <div class="form-field"><label>Currency</label>
+            <select><option>USD — US Dollar</option><option>EUR — Euro</option><option>GBP — British Pound</option><option>JPY — Japanese Yen</option><option>CAD — Canadian Dollar</option></select>
+          </div>
+          <button class="btn-primary btn-sm" style="margin-top:0.5rem" onclick="showToast('Preferences saved')">SAVE PREFERENCES</button>
+        </div>
+        <div class="account-card">
+          <div class="account-card-title">Email Notifications</div>
+          <div style="display:flex;flex-direction:column;gap:0.85rem">
+            <label style="display:flex;align-items:center;gap:0.75rem;font-size:13px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-family:var(--font-body);cursor:pointer"><input type="checkbox" checked style="width:auto"> Order confirmations &amp; shipping updates</label>
+            <label style="display:flex;align-items:center;gap:0.75rem;font-size:13px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-family:var(--font-body);cursor:pointer"><input type="checkbox" checked style="width:auto"> Promotions and new arrivals</label>
+            <label style="display:flex;align-items:center;gap:0.75rem;font-size:13px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-family:var(--font-body);cursor:pointer"><input type="checkbox" style="width:auto"> Product restock alerts</label>
+            <label style="display:flex;align-items:center;gap:0.75rem;font-size:13px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-family:var(--font-body);cursor:pointer"><input type="checkbox" style="width:auto"> Weekly hardware digest</label>
+          </div>
+          <button class="btn-primary btn-sm" style="margin-top:1.5rem" onclick="showToast('Notification preferences saved')">SAVE PREFERENCES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ADMIN ══════════════════ -->
+<div id="page-admin" class="page">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo-badge">⬡ ADMIN PANEL</div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem">Management</div>
+      <button class="admin-nav-item active" onclick="switchAdminTab('dashboard',this)">Dashboard</button>
+      <button class="admin-nav-item" onclick="switchAdminTab('products',this)">Products</button>
+      <button class="admin-nav-item" onclick="switchAdminTab('orders',this)">Orders</button>
+      <button class="admin-nav-item" onclick="switchAdminTab('add-product',this)">Add Product</button>
+      <div style="border-top:1px solid var(--border);margin-top:2rem;padding-top:1.5rem">
+        <button class="admin-nav-item" onclick="showPage('home')" style="color:var(--text-dim)">← Exit to Store</button>
+      </div>
+    </aside>
+    <div class="admin-main">
+      <!-- Dashboard -->
+      <div id="admin-dashboard" class="admin-panel active">
+        <div class="admin-panel-title">DASHBOARD</div>
+        <div class="admin-panel-sub">Welcome back, Admin. Here's your store overview.</div>
+        <div class="admin-stats">
+          <div class="stat-card"><div class="stat-label">Active Products</div><div class="stat-val accent" id="stat-products">9</div></div>
+          <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-val" id="stat-orders">0</div></div>
+          <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-val accent" id="stat-revenue">$0</div></div>
+          <div class="stat-card"><div class="stat-label">Registered Users</div><div class="stat-val" id="stat-users">0</div></div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:1rem">Recent Orders</div>
+        <div class="table-wrap"><table class="admin-table">
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+          <tbody id="admin-recent-orders"><tr><td colspan="6" style="color:var(--text-dim);text-align:center;padding:2rem;font-family:var(--font-mono);font-size:11px">// NO ORDERS YET</td></tr></tbody>
+        </table></div>
+      </div>
+      <!-- Products -->
+      <div id="admin-products" class="admin-panel">
+        <div class="admin-panel-title">PRODUCTS</div>
+        <div class="admin-panel-sub">Edit names, prices, descriptions, and visibility for all products.</div>
+        <div class="table-wrap"><table class="admin-table">
+          <thead><tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="admin-product-table"></tbody>
+        </table></div>
+      </div>
+      <!-- Orders -->
+      <div id="admin-orders" class="admin-panel">
+        <div class="admin-panel-title">ORDERS</div>
+        <div class="admin-panel-sub">View all customer orders and update their fulfillment status.</div>
+        <div class="table-wrap"><table class="admin-table">
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Email</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="admin-orders-table"><tr><td colspan="8" style="color:var(--text-dim);text-align:center;padding:2rem;font-family:var(--font-mono);font-size:11px">// NO ORDERS YET</td></tr></tbody>
+        </table></div>
+      </div>
+      <!-- Add Product -->
+      <div id="admin-add-product" class="admin-panel">
+        <div class="admin-panel-title">ADD PRODUCT</div>
+        <div class="admin-panel-sub">Add a new product to the store catalog.</div>
+        <div style="max-width:600px">
+          <div class="form-field"><label>Product Name</label><input type="text" id="new-name" placeholder="e.g. Ultra Performance CPU"></div>
+          <div class="form-row">
+            <div class="form-field"><label>Category</label><select id="new-cat"><option value="CPU">CPU</option><option value="SSD">SSD</option><option value="Keyboard">Keyboard</option></select></div>
+            <div class="form-field"><label>Price ($)</label><input type="number" id="new-price" placeholder="299" min="1"></div>
+          </div>
+          <div class="form-field"><label>Description</label><textarea id="new-desc" rows="3" placeholder="Describe the product..." style="resize:vertical"></textarea></div>
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.5rem;margin-top:0.25rem">Specifications (Key: Value, one per line)</div>
+          <textarea id="new-specs" rows="5" placeholder="Core Count: 12 Cores&#10;Base Frequency: 3.8 GHz&#10;Socket: LGA1700" style="resize:vertical;width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:0.75rem;outline:none"></textarea>
+          <button class="btn-primary" style="margin-top:1.5rem" onclick="addNewProduct()">ADD TO CATALOG</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-title">YOUR CART</div>
+    <button class="close-btn" onclick="toggleCart()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items"><div class="cart-empty">// NO ITEMS YET.</div></div>
+  <div class="cart-footer">
+    <div class="cart-total"><span class="cart-total-label">Total</span><span class="cart-total-amount" id="cart-total">$0</span></div>
+    <button class="btn-primary" style="width:100%;text-align:center;display:block;border:none;cursor:pointer" onclick="goToCheckout()">PROCEED TO CHECKOUT</button>
+  </div>
+</div>
+
+<!-- Sign In Modal -->
+<div class="modal-overlay" id="signin-modal">
+  <div class="signin-modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <div style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.04em">ACCOUNT</div>
+      <button class="close-btn" onclick="closeSignIn()">×</button>
+    </div>
+    <div class="signin-tabs">
+      <button class="signin-tab active" onclick="switchSigninTab('login',this)">Sign In</button>
+      <button class="signin-tab" onclick="switchSigninTab('register',this)">Create Account</button>
+    </div>
+    <div id="signin-login" class="signin-form active">
+      <div class="form-field"><label>Email</label><input type="email" id="login-email" placeholder="you@example.com"></div>
+      <div class="form-field"><label>Password</label><input type="password" id="login-pass" placeholder="••••••••"></div>
+      <button class="btn-primary" style="width:100%;margin-top:0.5rem" onclick="doLogin()">SIGN IN</button>
+      <div style="text-align:center;margin-top:1rem;font-size:12px;color:var(--text-dim);font-family:var(--font-mono)">// Any email + password works for demo</div>
+    </div>
+    <div id="signin-register" class="signin-form">
+      <div class="form-row">
+        <div class="form-field"><label>First Name</label><input type="text" id="reg-first" placeholder="Jane"></div>
+        <div class="form-field"><label>Last Name</label><input type="text" id="reg-last" placeholder="Doe"></div>
+      </div>
+      <div class="form-field"><label>Email</label><input type="email" id="reg-email" placeholder="you@example.com"></div>
+      <div class="form-field"><label>Password</label><input type="password" id="reg-pass" placeholder="••••••••"></div>
+      <button class="btn-primary" style="width:100%;margin-top:0.5rem" onclick="doRegister()">CREATE ACCOUNT</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <div class="modal-title">EDIT PRODUCT</div>
+    <input type="hidden" id="edit-id">
+    <div class="form-field"><label>Product Name</label><input type="text" id="edit-name"></div>
+    <div class="form-row">
+      <div class="form-field"><label>Category</label><select id="edit-cat"><option value="CPU">CPU</option><option value="SSD">SSD</option><option value="Keyboard">Keyboard</option></select></div>
+      <div class="form-field"><label>Price ($)</label><input type="number" id="edit-price" min="1"></div>
+    </div>
+    <div class="form-field"><label>Description</label><textarea id="edit-desc" rows="3" style="resize:vertical"></textarea></div>
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.5rem;margin-top:0.25rem">Specifications (Key: Value, one per line)</div>
+    <textarea id="edit-specs" rows="6" style="resize:vertical;width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:0.75rem;outline:none"></textarea>
+    <div class="modal-footer">
+      <button class="btn-ghost btn-sm" onclick="closeEditModal()">CANCEL</button>
+      <button class="btn-primary btn-sm" onclick="saveProductEdit()">SAVE CHANGES</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let PRODUCTS=[
+  {id:1,name:'Apex Performance Processor',category:'CPU',price:450,icon:'⚙️',active:true,desc:'Our flagship processor, engineered for extreme overclocking and sustained peak performance. Features 12 high-frequency cores with unlocked multipliers and Turbo Boost support.',specs:{'Core Count':'12 Cores','Base Frequency':'3.8 GHz','Turbo Boost':'Up to 5.4 GHz','TDP':'125W','Socket':'LGA1700','Cache':'36MB L3'}},
+  {id:2,name:'Creative Workstation Processor',category:'CPU',price:390,icon:'⚙️',active:true,desc:'Optimized for content creation, 4K rendering, and video editing. Balanced core layout for demanding creative workflows.',specs:{'Core Count':'12 Cores','Base Frequency':'3.6 GHz','Turbo Boost':'Up to 5.1 GHz','TDP':'105W','Socket':'LGA1700','Cache':'30MB L3'}},
+  {id:3,name:'Balanced Core Processor',category:'CPU',price:280,icon:'⚙️',active:true,desc:'The versatile all-rounder. Eight high-efficiency cores, perfect for gaming builds and professional workloads.',specs:{'Core Count':'8 Cores','Base Frequency':'3.4 GHz','Turbo Boost':'Up to 4.9 GHz','TDP':'95W','Socket':'LGA1700','Cache':'24MB L3'}},
+  {id:4,name:'Velocity NVMe SSD',category:'SSD',price:150,icon:'💾',active:true,desc:'Gen5 NVMe performance with 1TB of blazing-fast storage. Eliminates loading bottlenecks.',specs:{'Capacity':'1TB','Interface':'PCIe 5.0 NVMe','Read Speed':'12,400 MB/s','Write Speed':'11,800 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
+  {id:5,name:'Speed Master SSD',category:'SSD',price:120,icon:'💾',active:true,desc:'Entry-level Gen4 NVMe. Essential upgrade from SATA for any performance-focused build.',specs:{'Capacity':'1TB','Interface':'PCIe 4.0 NVMe','Read Speed':'7,400 MB/s','Write Speed':'6,900 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
+  {id:6,name:'Data Vault SSD',category:'SSD',price:180,icon:'💾',active:true,desc:'Massive 2TB Gen4 NVMe storage for creators who need both capacity and speed.',specs:{'Capacity':'2TB','Interface':'PCIe 4.0 NVMe','Read Speed':'7,300 MB/s','Write Speed':'6,700 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
+  {id:7,name:'Precision Mechanical Keyboard',category:'Keyboard',price:130,icon:'⌨️',active:true,desc:'Full-size mechanical keyboard with premium tactile switches for typists who demand accuracy.',specs:{'Layout':'Full Size (100%)','Switch Type':'Tactile Switches','Actuation':'45g','Backlight':'RGB per-key','Connection':'USB-C','Build':'Aluminum top plate'}},
+  {id:8,name:'Compact Tenkeyless Keyboard',category:'Keyboard',price:110,icon:'⌨️',active:true,desc:'TKL compact layout with linear switches for fast, smooth keystrokes and maximum desk space.',specs:{'Layout':'TKL Compact','Switch Type':'Linear Switches','Actuation':'40g','Backlight':'RGB per-key','Connection':'USB-C / Wireless','Build':'Polycarbonate frame'}},
+  {id:9,name:'Ergonomic Split Keyboard',category:'Keyboard',price:160,icon:'⌨️',active:true,desc:'Split ergonomic design reduces wrist fatigue. The ultimate tool for professionals who type for hours.',specs:{'Layout':'Ergo Split 65%','Switch Type':'Tactile Switches','Actuation':'50g','Backlight':'RGB per-key','Connection':'USB-C','Build':'CNC aluminum halves'}}
+];
+let cart=[],orders=[],purchaseHistory=[],currentProduct=null,currentQty=1,nextId=10,currentUser=null;
+
+function checkHash(){if(window.location.hash==='#admin')showAdminPage();}
+window.addEventListener('hashchange',checkHash);
+
+function showAdminPage(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-admin').classList.add('active');
+  document.querySelectorAll('.nav-links a,.nav-links button').forEach(a=>a.classList.remove('active'));
+  renderAdminProducts();renderAdminOrders();updateAdminStats();window.scrollTo(0,0);
+}
+function showPage(name){
+  if(name==='account'&&!currentUser){openSignIn();return;}
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links a,.nav-links button').forEach(a=>a.classList.remove('active'));
+  const n=document.getElementById('nav-'+name);if(n)n.classList.add('active');
+  window.scrollTo(0,0);
+  if(name==='shop')renderShopProducts();
+  if(name==='account')renderPurchaseHistory();
+  if(name==='checkout')renderCheckoutSummary();
+  if(window.location.hash==='#admin')history.replaceState(null,'','#');
+}
+function createProductCard(p,container){
+  const div=document.createElement('div');div.className='product-card';
+  div.innerHTML=`<div class="product-img-wrap" onclick="openProduct(${p.id})"><div class="product-icon">${p.icon}</div></div>
+    <div class="product-category">${p.category}</div><div class="product-name">${p.name}</div>
+    <div class="product-footer"><div class="product-price">$${p.price}</div>
+    <button class="add-to-cart" onclick="addToCart(${p.id},event)">+ ADD</button></div>`;
+  container.appendChild(div);
+}
+function renderHomeProducts(){const g=document.getElementById('home-products');g.innerHTML='';PRODUCTS.filter(p=>p.active).slice(0,6).forEach(p=>createProductCard(p,g));}
+function renderShopProducts(filter='all'){
+  const g=document.getElementById('shop-products');g.innerHTML='';
+  const f=filter==='all'?PRODUCTS.filter(p=>p.active):PRODUCTS.filter(p=>p.category===filter&&p.active);
+  f.forEach(p=>createProductCard(p,g));
+  document.getElementById('product-count').textContent=f.length+' PRODUCTS';
+}
+function filterProducts(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderShopProducts(cat);}
+function openProduct(id){
+  currentProduct=PRODUCTS.find(p=>p.id===id);currentQty=1;if(!currentProduct)return;
+  document.getElementById('detail-icon').textContent=currentProduct.icon;
+  document.getElementById('detail-cat').textContent=currentProduct.category;
+  document.getElementById('detail-name').textContent=currentProduct.name;
+  document.getElementById('detail-price').textContent='$'+currentProduct.price;
+  document.getElementById('detail-desc').textContent=currentProduct.desc;
+  document.getElementById('qty-display').textContent='1';
+  document.getElementById('detail-specs').innerHTML=Object.entries(currentProduct.specs).map(([k,v])=>`<div class="spec-row"><span class="spec-key">${k}</span><span class="spec-val">${v}</span></div>`).join('');
+  showPage('product');
+}
+function changeQty(d){currentQty=Math.max(1,currentQty+d);document.getElementById('qty-display').textContent=currentQty;}
+function addCurrentToCart(){if(!currentProduct)return;for(let i=0;i<currentQty;i++)addToCart(currentProduct.id);}
+function addToCart(id,e){
+  if(e)e.stopPropagation();
+  const p=PRODUCTS.find(pr=>pr.id===id);if(!p)return;
+  const ex=cart.find(c=>c.id===id);ex?ex.qty++:cart.push({...p,qty:1});
+  updateCart();showToast(p.name+' added to cart');
+}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCart();}
+function updateCart(){
+  const count=cart.reduce((s,c)=>s+c.qty,0);
+  const ce=document.getElementById('cart-count');ce.textContent=count;ce.style.display=count>0?'flex':'none';
+  const ie=document.getElementById('cart-items');
+  ie.innerHTML=cart.length===0?'<div class="cart-empty">// NO ITEMS YET.</div>':cart.map(c=>`
+    <div class="cart-item"><div class="cart-item-icon">${c.icon}</div>
+    <div class="cart-item-info"><div class="cart-item-name">${c.name}</div>
+    <div class="cart-item-price">$${c.price}</div><div class="cart-item-qty">Qty: ${c.qty}</div></div>
+    <button class="cart-item-remove" onclick="removeFromCart(${c.id})">×</button></div>`).join('');
+  document.getElementById('cart-total').textContent='$'+cart.reduce((s,c)=>s+c.price*c.qty,0);
+}
+function toggleCart(){document.getElementById('cart-overlay').classList.toggle('open');document.getElementById('cart-drawer').classList.toggle('open');}
+function goToCheckout(){
+  if(cart.length===0){showToast('Your cart is empty!');return;}
+  document.getElementById('cart-overlay').classList.remove('open');document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('checkout-content').style.display='block';document.getElementById('order-success').style.display='none';
+  if(currentUser){document.getElementById('co-email').value=currentUser.email||'';document.getElementById('co-first').value=currentUser.firstName||'';document.getElementById('co-last').value=currentUser.lastName||'';}
+  showPage('checkout');
+}
+function renderCheckoutSummary(){
+  document.getElementById('checkout-items').innerHTML=cart.map(c=>`<div class="summary-item"><span class="summary-item-name">${c.name} × ${c.qty}</span><span class="summary-item-price">$${c.price*c.qty}</span></div>`).join('');
+  const sub=cart.reduce((s,c)=>s+c.price*c.qty,0);const tax=Math.round(sub*0.08);
+  document.getElementById('co-subtotal').textContent='$'+sub;
+  document.getElementById('co-tax').textContent='$'+tax;
+  document.getElementById('co-total').textContent='$'+(sub+tax);
+}
+function fmtCard(el){let v=el.value.replace(/\D/g,'').substring(0,16);el.value=v.replace(/(.{4})/g,'$1 ').trim();}
+function fmtExp(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+' / '+v.substring(2,4);el.value=v;}
+function placeOrder(){
+  const email=document.getElementById('co-email').value.trim();
+  const first=document.getElementById('co-first').value.trim();
+  const last=document.getElementById('co-last').value.trim();
+  const addr=document.getElementById('co-addr').value.trim();
+  const cardnum=document.getElementById('co-cardnum').value.trim();
+  const exp=document.getElementById('co-exp').value.trim();
+  const cvv=document.getElementById('co-cvv').value.trim();
+  if(!email||!first||!last||!addr||!cardnum||!exp||!cvv){showToast('Please fill in all required fields');return;}
+  const sub=cart.reduce((s,c)=>s+c.price*c.qty,0);const tax=Math.round(sub*0.08);const total=sub+tax;
+  const orderId='EE-'+Date.now().toString(36).toUpperCase();
+  const order={id:orderId,customer:first+' '+last,email,items:[...cart],subtotal:sub,tax,total,status:'Processing',date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})};
+  orders.push(order);purchaseHistory.unshift(order);
+  document.getElementById('success-order-id').textContent=orderId;
+  document.getElementById('checkout-content').style.display='none';document.getElementById('order-success').style.display='block';
+  cart=[];updateCart();updateAdminStats();
+}
+function switchAccountTab(tab,btn){
+  document.querySelectorAll('.account-nav-item').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.account-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('acct-'+tab).classList.add('active');
+  if(tab==='history')renderPurchaseHistory();
+}
+function renderPurchaseHistory(){
+  const el=document.getElementById('history-list');
+  if(purchaseHistory.length===0){el.innerHTML='<div style="color:var(--text-dim);font-family:var(--font-mono);font-size:11px;padding:2rem 0;letter-spacing:0.08em">// NO ORDERS YET — SHOP TO GET STARTED</div>';return;}
+  el.innerHTML=purchaseHistory.map(o=>`
+    <div class="account-card" style="margin-bottom:1rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <div><span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">${o.id}</span>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:0.2rem">${o.date}</div></div>
+        <span class="pill ${o.status==='Delivered'?'pill-green':'pill-yellow'}">${o.status}</span>
+      </div>
+      ${o.items.map(i=>`<div style="display:flex;justify-content:space-between;font-size:13px;padding:0.4rem 0;border-bottom:1px solid var(--border)"><span style="color:var(--text-muted)">${i.name} × ${i.qty}</span><span style="font-family:var(--font-mono)">$${i.price*i.qty}</span></div>`).join('')}
+      <div style="display:flex;justify-content:space-between;font-size:13px;padding-top:0.75rem;font-weight:500"><span>Total</span><span style="font-family:var(--font-display);font-size:1.3rem">$${o.total}</span></div>
+    </div>`).join('');
+}
+function saveProfile(){
+  if(currentUser){currentUser.firstName=document.getElementById('acct-first').value;currentUser.lastName=document.getElementById('acct-last').value;currentUser.email=document.getElementById('acct-email').value;updateUserDisplay();}
+  showToast('Profile saved successfully');
+}
+function toggleSameAddr(cb){const bf=document.getElementById('billing-fields');bf.style.opacity=cb.checked?'0.4':'1';bf.style.pointerEvents=cb.checked?'none':'auto';}
+function openSignIn(){document.getElementById('signin-modal').classList.add('open');}
+function closeSignIn(){document.getElementById('signin-modal').classList.remove('open');}
+function switchSigninTab(tab,btn){
+  document.querySelectorAll('.signin-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.signin-form').forEach(f=>f.classList.remove('active'));document.getElementById('signin-'+tab).classList.add('active');
+}
+function doLogin(){
+  const email=document.getElementById('login-email').value.trim();const pass=document.getElementById('login-pass').value.trim();
+  if(!email||!pass){showToast('Please enter email and password');return;}
+  currentUser={email,firstName:email.split('@')[0],lastName:'',phone:''};onLoggedIn();
+}
+function doRegister(){
+  const first=document.getElementById('reg-first').value.trim();const last=document.getElementById('reg-last').value.trim();
+  const email=document.getElementById('reg-email').value.trim();const pass=document.getElementById('reg-pass').value.trim();
+  if(!first||!last||!email||!pass){showToast('Please fill in all fields');return;}
+  currentUser={firstName:first,lastName:last,email,phone:''};onLoggedIn();
+}
+function onLoggedIn(){
+  closeSignIn();
+  const btn=document.getElementById('user-btn');btn.textContent=currentUser.firstName.toUpperCase();btn.onclick=()=>showPage('account');
+  document.getElementById('nav-account').style.display='inline-block';
+  updateUserDisplay();showToast('Welcome, '+currentUser.firstName+'!');updateAdminStats();
+}
+function updateUserDisplay(){
+  document.getElementById('acct-greeting').textContent='Hello, '+currentUser.firstName;
+  document.getElementById('acct-email-display').textContent=currentUser.email;
+  document.getElementById('acct-first').value=currentUser.firstName;
+  document.getElementById('acct-last').value=currentUser.lastName;
+  document.getElementById('acct-email').value=currentUser.email;
+  document.getElementById('acct-phone').value=currentUser.phone||'';
+}
+function signOut(){
+  currentUser=null;const btn=document.getElementById('user-btn');btn.textContent='SIGN IN';btn.onclick=openSignIn;
+  document.getElementById('nav-account').style.display='none';showPage('home');showToast('Signed out successfully');
+}
+function switchAdminTab(tab,btn){
+  document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));document.getElementById('admin-'+tab).classList.add('active');
+  if(tab==='products')renderAdminProducts();if(tab==='orders')renderAdminOrders();
+  if(tab==='dashboard'){renderAdminRecentOrders();updateAdminStats();}
+}
+function renderAdminProducts(){
+  document.getElementById('admin-product-table').innerHTML=PRODUCTS.map(p=>`
+    <tr><td style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim)">#${p.id}</td>
+    <td style="max-width:180px;font-weight:500">${p.name}</td>
+    <td><span class="pill pill-dim">${p.category}</span></td>
+    <td style="font-family:var(--font-mono)">$${p.price}</td>
+    <td><span class="pill ${p.active?'pill-green':'pill-red'}">${p.active?'ACTIVE':'HIDDEN'}</span></td>
+    <td><div class="admin-actions">
+      <button class="btn-edit" onclick="openEditModal(${p.id})">EDIT</button>
+      <button class="btn-edit" style="color:${p.active?'var(--red)':'var(--green)'};border-color:${p.active?'rgba(255,68,68,0.3)':'rgba(68,204,136,0.3)'}" onclick="toggleProductActive(${p.id})">${p.active?'HIDE':'SHOW'}</button>
+    </div></td></tr>`).join('');
+}
+function openEditModal(id){
+  const p=PRODUCTS.find(pr=>pr.id===id);if(!p)return;
+  document.getElementById('edit-id').value=id;document.getElementById('edit-name').value=p.name;
+  document.getElementById('edit-cat').value=p.category;document.getElementById('edit-price').value=p.price;
+  document.getElementById('edit-desc').value=p.desc;
+  document.getElementById('edit-specs').value=Object.entries(p.specs).map(([k,v])=>k+': '+v).join('\n');
+  document.getElementById('edit-modal').classList.add('open');
+}
+function closeEditModal(){document.getElementById('edit-modal').classList.remove('open');}
+function saveProductEdit(){
+  const id=parseInt(document.getElementById('edit-id').value);const p=PRODUCTS.find(pr=>pr.id===id);if(!p)return;
+  p.name=document.getElementById('edit-name').value.trim();p.category=document.getElementById('edit-cat').value;
+  p.price=parseInt(document.getElementById('edit-price').value);p.desc=document.getElementById('edit-desc').value.trim();
+  p.icon=p.category==='CPU'?'⚙️':p.category==='SSD'?'💾':'⌨️';
+  p.specs={};document.getElementById('edit-specs').value.trim().split('\n').forEach(line=>{const i=line.indexOf(':');if(i>-1)p.specs[line.substring(0,i).trim()]=line.substring(i+1).trim();});
+  closeEditModal();renderAdminProducts();renderHomeProducts();showToast(p.name+' updated');
+}
+function toggleProductActive(id){
+  const p=PRODUCTS.find(pr=>pr.id===id);if(p){p.active=!p.active;renderAdminProducts();renderHomeProducts();updateAdminStats();showToast(p.name+' '+(p.active?'now visible':'hidden'));}
+}
+function addNewProduct(){
+  const name=document.getElementById('new-name').value.trim();const cat=document.getElementById('new-cat').value;
+  const price=parseInt(document.getElementById('new-price').value);const desc=document.getElementById('new-desc').value.trim();
+  if(!name||!price||!desc){showToast('Please fill in name, price, and description');return;}
+  const specs={};document.getElementById('new-specs').value.trim().split('\n').forEach(line=>{const i=line.indexOf(':');if(i>-1)specs[line.substring(0,i).trim()]=line.substring(i+1).trim();});
+  const icon=cat==='CPU'?'⚙️':cat==='SSD'?'💾':'⌨️';
+  PRODUCTS.push({id:nextId++,name,category:cat,price,icon,active:true,desc,specs});
+  document.getElementById('new-name').value='';document.getElementById('new-price').value='';document.getElementById('new-desc').value='';document.getElementById('new-specs').value='';
+  renderHomeProducts();updateAdminStats();showToast(name+' added to catalog');
+  const prodBtn=document.querySelector('.admin-nav-item:nth-child(2)');if(prodBtn)switchAdminTab('products',prodBtn);
+}
+function renderAdminOrders(){
+  const tb=document.getElementById('admin-orders-table');
+  if(orders.length===0){tb.innerHTML='<tr><td colspan="8" style="color:var(--text-dim);text-align:center;padding:2rem;font-family:var(--font-mono);font-size:11px">// NO ORDERS YET</td></tr>';return;}
+  tb.innerHTML=orders.map(o=>`<tr>
+    <td style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">${o.id}</td>
+    <td>${o.customer}</td><td style="font-size:12px;color:var(--text-muted)">${o.email}</td>
+    <td style="font-size:12px;max-width:160px">${o.items.map(i=>i.name+' ×'+i.qty).join(', ')}</td>
+    <td style="font-family:var(--font-mono)">$${o.total}</td>
+    <td><select onchange="updateOrderStatus('${o.id}',this.value)" style="font-size:11px;padding:0.25rem 0.5rem;width:auto;background:var(--bg3);border:1px solid var(--border);color:var(--text)">
+      <option ${o.status==='Processing'?'selected':''}>Processing</option>
+      <option ${o.status==='Shipped'?'selected':''}>Shipped</option>
+      <option ${o.status==='Delivered'?'selected':''}>Delivered</option>
+      <option ${o.status==='Cancelled'?'selected':''}>Cancelled</option>
+    </select></td>
+    <td style="font-size:12px;color:var(--text-muted)">${o.date}</td>
+    <td><button class="btn-del" onclick="deleteOrder('${o.id}')">DELETE</button></td>
+  </tr>`).join('');
+}
+function renderAdminRecentOrders(){
+  const tb=document.getElementById('admin-recent-orders');
+  if(orders.length===0){tb.innerHTML='<tr><td colspan="6" style="color:var(--text-dim);text-align:center;padding:2rem;font-family:var(--font-mono);font-size:11px">// NO ORDERS YET</td></tr>';return;}
+  tb.innerHTML=[...orders].reverse().slice(0,5).map(o=>`<tr>
+    <td style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">${o.id}</td>
+    <td>${o.customer}</td><td style="font-size:12px;color:var(--text-muted)">${o.items.length} item(s)</td>
+    <td style="font-family:var(--font-mono)">$${o.total}</td>
+    <td><span class="pill pill-yellow">${o.status}</span></td>
+    <td style="font-size:12px;color:var(--text-muted)">${o.date}</td>
+  </tr>`).join('');
+}
+function updateOrderStatus(id,status){
+  const o=orders.find(ord=>ord.id===id);const ph=purchaseHistory.find(ord=>ord.id===id);
+  if(o)o.status=status;if(ph)ph.status=status;
+}
+function deleteOrder(id){orders=orders.filter(o=>o.id!==id);renderAdminOrders();renderAdminRecentOrders();updateAdminStats();}
+function updateAdminStats(){
+  document.getElementById('stat-products').textContent=PRODUCTS.filter(p=>p.active).length;
+  document.getElementById('stat-orders').textContent=orders.length;
+  document.getElementById('stat-revenue').textContent='$'+orders.reduce((s,o)=>s+o.total,0);
+  document.getElementById('stat-users').textContent=currentUser?1:0;
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+
+renderHomeProducts();updateCart();checkHash();
+</script>
+</body>
+</html>
