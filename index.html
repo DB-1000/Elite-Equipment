@@ -62,7 +62,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .product-card:hover .product-img-wrap::after{opacity:1}
 .product-img-wrap{aspect-ratio:1;background:var(--bg3);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .product-img-wrap::after{content:'VIEW →';position:absolute;inset:0;background:rgba(232,255,71,0.08);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--accent);opacity:0;transition:opacity 0.2s}
-.product-icon{font-size:4rem;user-select:none;filter:grayscale(1) opacity(0.4)}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .product-category{font-family:var(--font-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:0.4rem}
 .product-name{font-size:15px;font-weight:500;margin-bottom:0.75rem;line-height:1.3}
 .product-footer{display:flex;align-items:center;justify-content:space-between}
@@ -82,7 +82,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .product-count{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:0.1em}
 #page-product{padding-top:64px}
 .product-detail{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px)}
-.product-detail-img{background:var(--bg3);border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:8rem;filter:grayscale(1) opacity(0.25);min-height:500px}
+.product-detail-img{background:var(--bg3);border-right:1px solid var(--border);overflow:hidden;min-height:500px}.product-detail-img img{width:100%;height:100%;object-fit:cover;display:block}
 .product-detail-info{padding:4rem 3.5rem;border-bottom:1px solid var(--border)}
 .product-detail-cat{font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem}
 .product-detail-name{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);letter-spacing:0.03em;line-height:1;margin-bottom:1.5rem}
@@ -106,7 +106,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .cart-items{flex:1;overflow-y:auto;padding:1.5rem 1.75rem}
 .cart-empty{text-align:center;color:var(--text-dim);font-size:13px;padding:3rem 0;font-family:var(--font-mono);letter-spacing:0.08em}
 .cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
-.cart-item-icon{width:60px;height:60px;background:var(--bg3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;filter:grayscale(1) opacity(0.4)}
+.cart-item-icon{width:60px;height:60px;background:var(--bg3);flex-shrink:0;overflow:hidden}.cart-item-icon img{width:100%;height:100%;object-fit:cover;display:block}
 .cart-item-info{flex:1}
 .cart-item-name{font-size:13px;font-weight:500;margin-bottom:0.25rem}
 .cart-item-price{font-family:var(--font-mono);font-size:12px;color:var(--accent)}
@@ -655,15 +655,15 @@ footer{border-top:1px solid var(--border);padding:3rem;display:grid;grid-templat
 
 <script>
 let PRODUCTS=[
-  {id:1,name:'Apex Performance Processor',category:'CPU',price:450,icon:'⚙️',active:true,desc:'Our flagship processor, engineered for extreme overclocking and sustained peak performance. Features 12 high-frequency cores with unlocked multipliers and Turbo Boost support.',specs:{'Core Count':'12 Cores','Base Frequency':'3.8 GHz','Turbo Boost':'Up to 5.4 GHz','TDP':'125W','Socket':'LGA1700','Cache':'36MB L3'}},
-  {id:2,name:'Creative Workstation Processor',category:'CPU',price:390,icon:'⚙️',active:true,desc:'Optimized for content creation, 4K rendering, and video editing. Balanced core layout for demanding creative workflows.',specs:{'Core Count':'12 Cores','Base Frequency':'3.6 GHz','Turbo Boost':'Up to 5.1 GHz','TDP':'105W','Socket':'LGA1700','Cache':'30MB L3'}},
-  {id:3,name:'Balanced Core Processor',category:'CPU',price:280,icon:'⚙️',active:true,desc:'The versatile all-rounder. Eight high-efficiency cores, perfect for gaming builds and professional workloads.',specs:{'Core Count':'8 Cores','Base Frequency':'3.4 GHz','Turbo Boost':'Up to 4.9 GHz','TDP':'95W','Socket':'LGA1700','Cache':'24MB L3'}},
-  {id:4,name:'Velocity NVMe SSD',category:'SSD',price:150,icon:'💾',active:true,desc:'Gen5 NVMe performance with 1TB of blazing-fast storage. Eliminates loading bottlenecks.',specs:{'Capacity':'1TB','Interface':'PCIe 5.0 NVMe','Read Speed':'12,400 MB/s','Write Speed':'11,800 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
-  {id:5,name:'Speed Master SSD',category:'SSD',price:120,icon:'💾',active:true,desc:'Entry-level Gen4 NVMe. Essential upgrade from SATA for any performance-focused build.',specs:{'Capacity':'1TB','Interface':'PCIe 4.0 NVMe','Read Speed':'7,400 MB/s','Write Speed':'6,900 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
-  {id:6,name:'Data Vault SSD',category:'SSD',price:180,icon:'💾',active:true,desc:'Massive 2TB Gen4 NVMe storage for creators who need both capacity and speed.',specs:{'Capacity':'2TB','Interface':'PCIe 4.0 NVMe','Read Speed':'7,300 MB/s','Write Speed':'6,700 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
-  {id:7,name:'Precision Mechanical Keyboard',category:'Keyboard',price:130,icon:'⌨️',active:true,desc:'Full-size mechanical keyboard with premium tactile switches for typists who demand accuracy.',specs:{'Layout':'Full Size (100%)','Switch Type':'Tactile Switches','Actuation':'45g','Backlight':'RGB per-key','Connection':'USB-C','Build':'Aluminum top plate'}},
-  {id:8,name:'Compact Tenkeyless Keyboard',category:'Keyboard',price:110,icon:'⌨️',active:true,desc:'TKL compact layout with linear switches for fast, smooth keystrokes and maximum desk space.',specs:{'Layout':'TKL Compact','Switch Type':'Linear Switches','Actuation':'40g','Backlight':'RGB per-key','Connection':'USB-C / Wireless','Build':'Polycarbonate frame'}},
-  {id:9,name:'Ergonomic Split Keyboard',category:'Keyboard',price:160,icon:'⌨️',active:true,desc:'Split ergonomic design reduces wrist fatigue. The ultimate tool for professionals who type for hours.',specs:{'Layout':'Ergo Split 65%','Switch Type':'Tactile Switches','Actuation':'50g','Backlight':'RGB per-key','Connection':'USB-C','Build':'CNC aluminum halves'}}
+  {id:1,name:'Apex Performance Processor',category:'CPU',price:450,image:'images/cpu-apex.jpg',active:true,desc:'Our flagship processor, engineered for extreme overclocking and sustained peak performance. Features 12 high-frequency cores with unlocked multipliers and Turbo Boost support.',specs:{'Core Count':'12 Cores','Base Frequency':'3.8 GHz','Turbo Boost':'Up to 5.4 GHz','TDP':'125W','Socket':'LGA1700','Cache':'36MB L3'}},
+  {id:2,name:'Creative Workstation Processor',category:'CPU',price:390,image:'images/cpu-workstation.jpg',active:true,desc:'Optimized for content creation, 4K rendering, and video editing. Balanced core layout for demanding creative workflows.',specs:{'Core Count':'12 Cores','Base Frequency':'3.6 GHz','Turbo Boost':'Up to 5.1 GHz','TDP':'105W','Socket':'LGA1700','Cache':'30MB L3'}},
+  {id:3,name:'Balanced Core Processor',category:'CPU',price:280,image:'images/cpu-balanced.jpg',active:true,desc:'The versatile all-rounder. Eight high-efficiency cores, perfect for gaming builds and professional workloads.',specs:{'Core Count':'8 Cores','Base Frequency':'3.4 GHz','Turbo Boost':'Up to 4.9 GHz','TDP':'95W','Socket':'LGA1700','Cache':'24MB L3'}},
+  {id:4,name:'Velocity NVMe SSD',category:'SSD',price:150,image:'images/ssd-velocity.jpg',active:true,desc:'Gen5 NVMe performance with 1TB of blazing-fast storage. Eliminates loading bottlenecks.',specs:{'Capacity':'1TB','Interface':'PCIe 5.0 NVMe','Read Speed':'12,400 MB/s','Write Speed':'11,800 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
+  {id:5,name:'Speed Master SSD',category:'SSD',price:120,image:'images/ssd-speedmaster.jpg',active:true,desc:'Entry-level Gen4 NVMe. Essential upgrade from SATA for any performance-focused build.',specs:{'Capacity':'1TB','Interface':'PCIe 4.0 NVMe','Read Speed':'7,400 MB/s','Write Speed':'6,900 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
+  {id:6,name:'Data Vault SSD',category:'SSD',price:180,image:'images/ssd-datavault.jpg',active:true,desc:'Massive 2TB Gen4 NVMe storage for creators who need both capacity and speed.',specs:{'Capacity':'2TB','Interface':'PCIe 4.0 NVMe','Read Speed':'7,300 MB/s','Write Speed':'6,700 MB/s','Form Factor':'M.2 2280','NAND':'TLC 3D'}},
+  {id:7,name:'Precision Mechanical Keyboard',category:'Keyboard',price:130,image:'images/keyboard-precision.jpg',active:true,desc:'Full-size mechanical keyboard with premium tactile switches for typists who demand accuracy.',specs:{'Layout':'Full Size (100%)','Switch Type':'Tactile Switches','Actuation':'45g','Backlight':'RGB per-key','Connection':'USB-C','Build':'Aluminum top plate'}},
+  {id:8,name:'Compact Tenkeyless Keyboard',category:'Keyboard',price:110,image:'images/keyboard-tkl.jpg',active:true,desc:'TKL compact layout with linear switches for fast, smooth keystrokes and maximum desk space.',specs:{'Layout':'TKL Compact','Switch Type':'Linear Switches','Actuation':'40g','Backlight':'RGB per-key','Connection':'USB-C / Wireless','Build':'Polycarbonate frame'}},
+  {id:9,name:'Ergonomic Split Keyboard',category:'Keyboard',price:160,image:'images/keyboard-ergo.jpg',active:true,desc:'Split ergonomic design reduces wrist fatigue. The ultimate tool for professionals who type for hours.',specs:{'Layout':'Ergo Split 65%','Switch Type':'Tactile Switches','Actuation':'50g','Backlight':'RGB per-key','Connection':'USB-C','Build':'CNC aluminum halves'}}
 ];
 let cart=[],orders=[],purchaseHistory=[],currentProduct=null,currentQty=1,nextId=10,currentUser=null;
 
@@ -690,7 +690,7 @@ function showPage(name){
 }
 function createProductCard(p,container){
   const div=document.createElement('div');div.className='product-card';
-  div.innerHTML=`<div class="product-img-wrap" onclick="openProduct(${p.id})"><div class="product-icon">${p.icon}</div></div>
+  div.innerHTML=`<div class="product-img-wrap" onclick="openProduct(${p.id})"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
     <div class="product-category">${p.category}</div><div class="product-name">${p.name}</div>
     <div class="product-footer"><div class="product-price">$${p.price}</div>
     <button class="add-to-cart" onclick="addToCart(${p.id},event)">+ ADD</button></div>`;
@@ -706,7 +706,7 @@ function renderShopProducts(filter='all'){
 function filterProducts(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderShopProducts(cat);}
 function openProduct(id){
   currentProduct=PRODUCTS.find(p=>p.id===id);currentQty=1;if(!currentProduct)return;
-  document.getElementById('detail-icon').textContent=currentProduct.icon;
+  document.getElementById('detail-icon').innerHTML=`<img src="${currentProduct.image}" alt="${currentProduct.name}">`;
   document.getElementById('detail-cat').textContent=currentProduct.category;
   document.getElementById('detail-name').textContent=currentProduct.name;
   document.getElementById('detail-price').textContent='$'+currentProduct.price;
@@ -729,7 +729,7 @@ function updateCart(){
   const ce=document.getElementById('cart-count');ce.textContent=count;ce.style.display=count>0?'flex':'none';
   const ie=document.getElementById('cart-items');
   ie.innerHTML=cart.length===0?'<div class="cart-empty">// NO ITEMS YET.</div>':cart.map(c=>`
-    <div class="cart-item"><div class="cart-item-icon">${c.icon}</div>
+    <div class="cart-item"><div class="cart-item-icon"><img src="${c.image}" alt="${c.name}" loading="lazy"></div>
     <div class="cart-item-info"><div class="cart-item-name">${c.name}</div>
     <div class="cart-item-price">$${c.price}</div><div class="cart-item-qty">Qty: ${c.qty}</div></div>
     <button class="cart-item-remove" onclick="removeFromCart(${c.id})">×</button></div>`).join('');
@@ -860,7 +860,6 @@ function saveProductEdit(){
   const id=parseInt(document.getElementById('edit-id').value);const p=PRODUCTS.find(pr=>pr.id===id);if(!p)return;
   p.name=document.getElementById('edit-name').value.trim();p.category=document.getElementById('edit-cat').value;
   p.price=parseInt(document.getElementById('edit-price').value);p.desc=document.getElementById('edit-desc').value.trim();
-  p.icon=p.category==='CPU'?'⚙️':p.category==='SSD'?'💾':'⌨️';
   p.specs={};document.getElementById('edit-specs').value.trim().split('\n').forEach(line=>{const i=line.indexOf(':');if(i>-1)p.specs[line.substring(0,i).trim()]=line.substring(i+1).trim();});
   closeEditModal();renderAdminProducts();renderHomeProducts();showToast(p.name+' updated');
 }
@@ -872,8 +871,8 @@ function addNewProduct(){
   const price=parseInt(document.getElementById('new-price').value);const desc=document.getElementById('new-desc').value.trim();
   if(!name||!price||!desc){showToast('Please fill in name, price, and description');return;}
   const specs={};document.getElementById('new-specs').value.trim().split('\n').forEach(line=>{const i=line.indexOf(':');if(i>-1)specs[line.substring(0,i).trim()]=line.substring(i+1).trim();});
-  const icon=cat==='CPU'?'⚙️':cat==='SSD'?'💾':'⌨️';
-  PRODUCTS.push({id:nextId++,name,category:cat,price,icon,active:true,desc,specs});
+  const image=cat==='CPU'?'images/cpu-apex.jpg':cat==='SSD'?'images/ssd-velocity.jpg':'images/keyboard-precision.jpg';
+  PRODUCTS.push({id:nextId++,name,category:cat,price,image,active:true,desc,specs});
   document.getElementById('new-name').value='';document.getElementById('new-price').value='';document.getElementById('new-desc').value='';document.getElementById('new-specs').value='';
   renderHomeProducts();updateAdminStats();showToast(name+' added to catalog');
   const prodBtn=document.querySelector('.admin-nav-item:nth-child(2)');if(prodBtn)switchAdminTab('products',prodBtn);
